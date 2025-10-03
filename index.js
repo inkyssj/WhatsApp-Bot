@@ -5,7 +5,6 @@ const path = require('path');
 const { fileURLToPath } = require('url');
 const { exec } = require('child_process');
 
-
 let plugins;
 
 const start = async() => {
