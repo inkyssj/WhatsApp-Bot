@@ -31,7 +31,7 @@ const start = async() => {
 
   sock.ev.on('creds.update', saveCreds);
 
-  sock.ev.on('message.upsert', async(m) => {
+  sock.ev.on('messages.upsert', async(m) => {
     console.log(m)
   });
 };
