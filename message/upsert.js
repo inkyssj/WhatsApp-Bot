@@ -1,10 +1,9 @@
 const { removeAccents } = require('../lib/functions')
-const { client, sms } = require('../lib/simple')
+const { sms } = require('../lib/simple')
 
 module.exports = async(sock, m, plugins) => {
   try {
-    sock = await client(sock)
-    m = await sms(sock, m)
+    m = await sms(m)
     
     console.log(m)
   } catch(e) {
