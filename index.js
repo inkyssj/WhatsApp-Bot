@@ -12,7 +12,7 @@ const start = async() => {
     printQRInTerminal: true,
     auth: {
       creds: state.creds,
-      keys: makeCacheableSignalKeyStore(state.keys, level)  // 👈 acá estaba el error
+      keys: makeCacheableSignalKeyStore(state.keys, level)
     }
   });
 
@@ -32,7 +32,7 @@ const start = async() => {
   sock.ev.on('creds.update', saveCreds);
 
   sock.ev.on('message.upsert', async({ type, messages }) => {
-    // acá vas a manejar mensajes entrantes
+    
   });
 };
 
