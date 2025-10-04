@@ -7,6 +7,7 @@ module.exports = async(sock, m, plugins) => {
 
     const base64 = Buffer.from(m.message.messageContextInfo.messageSecret).toString('base64');
     console.log('Base64:', base64)
+    console.log(m.message.messageContextInfo)
   } catch(e) {
     console.log('Error en messages.upsert: ', e)
   }
