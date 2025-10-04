@@ -2,6 +2,7 @@ const fs = require('node:fs');
 const P = require('pino');
 const QRCode = require('qrcode');
 const { useMultiFileAuthState, makeCacheableSignalKeyStore, makeWASocket, DisconnectReason } = require('baileys');
+const path = require('path');
 
 const start = async() => {
   const level = P({ level: 'silent' }).child({ level: 'silent' });
@@ -37,6 +38,21 @@ const start = async() => {
       if (m.key.remoteJid == 'status@broadcast') return
 
       if (m.message) {
+        m.message = m.message?.ephemeralMessage ? m.message.ephemeralMessage.message : m.message
+
+        let pluginFolder = path.join(_dirname, 'plugins')
+        let pluginFilter = (filename) => /\.js$/.test(filename)
+        let plugins = {}
+        for (let filename of fs.readdirSync(pluginFolder).filter(pluginFilter)) {
+          try {
+            const modules = await import(path.join(pluginFolder, filename))
+            plugins[filename] = module.default || module
+          } cath(e) {
+            console.log('Error al cargar' + filename, e)
+            delete plugins[filename]
+          }
+        }
+
         console.log(m)
       }
     }
