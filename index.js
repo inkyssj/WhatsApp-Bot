@@ -4,6 +4,7 @@ const QRCode = require('qrcode');
 const path = require('path');
 const { fileURLToPath } = require('url');
 const { exec } = require('child_process');
+const { useMultiFileAuthState, makeCacheableSignalKeyStore, makeWASocket, DisconnectReason } = require('baileys');
 
 let plugins;
 
@@ -16,7 +17,7 @@ const start = async() => {
     printQRInTerminal: true,
     auth: {
       creds: state.creds,
-      keys: makeCacheableSingnalKeyStore(state.key, level);
+      keys: makeCacheableSignalKeyStore(state.key, level);
     };
   });
 
@@ -30,7 +31,6 @@ const start = async() => {
   sock.ev.on('creds.update', saveCreds);
 
   sock.ev.on('message.upsert', async({ type, messages }) => {
-    m = messages[0];
   });
   
 };
