@@ -17,7 +17,7 @@ const start = async() => {
     printQRInTerminal: true,
     auth: {
       creds: state.creds,
-      keys: makeCacheableSignalKeyStore(state.key, level);
+      keys: makeCacheableSignalKeyStore(state.key, level)
     };
   });
 
