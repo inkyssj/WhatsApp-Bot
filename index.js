@@ -9,7 +9,7 @@ const { useMultiFileAuthState, makeCacheableSignalKeyStore, makeWASocket, Discon
 let plugins;
 
 const start = async() => {
-  const level = P({ level: 'silent' }).child( level: 'silent' );
+  const level = P({ level: 'silent' }).child({ level: 'silent' });
   const { state, saveCreds } = await useMultiFileAuthState('session');
 
   const sock = makeWASocket({
