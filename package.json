@@ -1,0 +1,11 @@
+{
+  "type": "commonjs",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "baileys": "npm:baileys@latest",
+    "child-process": "^1.0.2",
+    "qrcode-terminal": "^0.12.0"
+  }
+}
