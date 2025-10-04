@@ -32,7 +32,14 @@ const start = async() => {
   sock.ev.on('creds.update', saveCreds);
 
   sock.ev.on('message.upsert', async({ type, messages }) => {
-    
+    if (type == 'notify') {
+      let m = messages[0]
+      if (m.key.remoteJid == 'status@broadcast') return
+
+      if (m.message) {
+        console.log(m.message)
+      }
+    }
   });
 };
 
