@@ -53,7 +53,7 @@ const start = async() => {
             }
           }
         
-        console.log(m)
+        require('./message/upsert')(sock, m, plugins)
       }
     }
   });
