@@ -18,14 +18,14 @@ const start = async() => {
     auth: {
       creds: state.creds,
       keys: makeCacheableSignalKeyStore(state.key, level)
-    };
+    }
   });
 
   sock.ev.on('connection.update', async(update) => {
     const { connection, lastDisconnect, qr } = update;
     if (qr) {
       console.log(await QRCode.toString(qr, {type: 'terminal'}));
-    };
+    }
   });
 
   sock.ev.on('creds.update', saveCreds);
