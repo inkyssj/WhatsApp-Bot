@@ -21,11 +21,17 @@ const start = async() => {
     }
   });
 
-  sock.ev.on('connection.update', async(update) => {
-    const { connection, lastDisconnect, qr } = update;
-    if (qr) {
-      console.log(await QRCode.toString(qr, {type: 'terminal'}));
-    }
+  sock.ev.on('connection.update', async ({connection, lastDisconnect, qr }) => {
+    if (qr) console.log(await QRCode.toString(qr, {type:'terminal'}))
+    if (connection == 'close') {
+      if (lastDisconnect?.error?.output?.statusCode !== 401) {
+        start()
+      } else {
+        console.log('La session esta corrupta!')
+        fs.rmSync('session', { recursive: true })
+        start()
+      }
+    } else if (connection == 'open') console.log('Bot iniciado!')
   });
 
   sock.ev.on('creds.update', saveCreds);
