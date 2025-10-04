@@ -22,7 +22,7 @@ const start = async() => {
       if (lastDisconnect?.error?.output?.statusCode !== 401) {
         start()
       } else {
-        console.log('¡La sesión está corrupta!')
+        console.log('⚠️ Sesión corrupta. Reiniciando...')
         fs.rmSync('session', { recursive: true, force: true })
         start()
       }
