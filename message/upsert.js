@@ -5,7 +5,7 @@ module.exports = async(sock, m, plugins) => {
   try {
     m = await sms(m)
     
-    console.log(m.message)
+    console.log(m.message.extendedTextMessage.contextInfo.quotedMessage)
   } catch(e) {
     console.log('Error en messages.upsert: ', e)
   }
