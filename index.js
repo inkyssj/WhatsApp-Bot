@@ -1,12 +1,7 @@
 const fs = require('node:fs');
 const P = require('pino');
 const QRCode = require('qrcode');
-const path = require('path');
-const { fileURLToPath } = require('url');
-const { exec } = require('child_process');
 const { useMultiFileAuthState, makeCacheableSignalKeyStore, makeWASocket, DisconnectReason } = require('baileys');
-
-let plugins;
 
 const start = async() => {
   const level = P({ level: 'silent' }).child({ level: 'silent' });
@@ -17,7 +12,7 @@ const start = async() => {
     printQRInTerminal: true,
     auth: {
       creds: state.creds,
-      keys: makeCacheableSignalKeyStore(state.key, level)
+      keys: makeCacheableSignalKeyStore(state.keys, level)  // 👈 acá estaba el error
     }
   });
 
@@ -27,18 +22,18 @@ const start = async() => {
       if (lastDisconnect?.error?.output?.statusCode !== 401) {
         start()
       } else {
-        console.log('La session esta corrupta!')
-        fs.rmSync('session', { recursive: true })
+        console.log('¡La sesión está corrupta!')
+        fs.rmSync('session', { recursive: true, force: true })
         start()
       }
-    } else if (connection == 'open') console.log('Bot iniciado!')
+    } else if (connection == 'open') console.log('✅ Bot iniciado!')
   });
 
   sock.ev.on('creds.update', saveCreds);
 
   sock.ev.on('message.upsert', async({ type, messages }) => {
+    // acá vas a manejar mensajes entrantes
   });
-  
 };
 
 start();
