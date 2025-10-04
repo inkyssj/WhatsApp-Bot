@@ -6,7 +6,7 @@ module.exports = async(sock, m, plugins) => {
     sock = await client(sock)
     m = await sms(sock, m)
 
-    console.log(m)
+    console.log(String(m))
   } catch(e) {
     console.log('Error en messages.upsert: ', e)
   }
